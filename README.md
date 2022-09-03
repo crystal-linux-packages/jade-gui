@@ -1,0 +1,1 @@
+PKGBUILD for crystal-linux/jade-gui
