@@ -1,26 +1,31 @@
+# Maintainer:  echo -n 'TWljaGFsIFMuIDxtaWNoYWxAZ2V0Y3J5c3QuYWw+' | base64 -d
+# Contributor: echo -n 'YXh0bG9zIDxheHRsb3NAZ2V0Y3J5c3QuYWw+'     | base64 -d
+
 pkgname=jade-gui
 pkgver=1.1.4
 pkgrel=3
-pkgdesc="Libadwaita based gui frontend for jade"
+pkgdesc="Libadwaita based GUI front-end for Jade"
 license=('GPL3')
 arch=('any')
-url="https://github.com/crystal-linux/jade-gui"
+url="https://github.com/crystal-linux/$pkgname"
 depends=('jade' 'openssl' 'flatpak')
-makedepends=('flatpak-builder' 'flatpak')
-source=("git+${url}.git")
+makedepends=('flatpak-builder' 'git')
+source=("git+${url}?rev=v$pkgver")
 sha256sums=('SKIP')
 
 build() {
-    cd ${srcdir}/jade-gui
-    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-    flatpak-builder --install-deps-from=flathub --repo=../build-repo --force-clean ../build-dir al.getcryst.jadegui.yml
-    flatpak build-bundle ../build-repo --runtime-repo=https://flathub.org/repo/flathub.flatpakrepo ../jade-gui.flatpak al.getcryst.jadegui
+    cd "$srcdir/$pkgname"
+    flatpak remote-add --if-not-exists flathub \ 
+        https://flathub.org/repo/flathub.flatpakrepo
+    flatpak-builder --install-deps-from=flathub \
+        --repo= ../build-repo \
+        --force-clean ../build-dir al.getcryst.jadegui.yml
+    flatpak build-bundle ../build-repo \
+        --runtime-repo=https://flathub.org/repo/flathub.flatpakrepo \
+                ../jade-gui.flatpak al.getcryst.jadegui
 }
 
 package() {
-    mkdir -p ${pkgdir}/usr/share/jade-gui
-    mkdir -p ${pkgdir}/usr/bin/
-    cp jade-gui.flatpak ${pkgdir}/usr/share/jade-gui/jade-gui.flatpak
-    echo -e "#!/usr/bin/env bash\nflatpak run al.getcryst.jadegui" > ${pkgdir}/usr/bin/jade-gui
-    chmod +x ${pkgdir}/usr/bin/jade-gui
+    install -Dm 0755 jade-gui.flatpak "$pkgdir/usr/share/jade-gui/."
+    install -Dm 0755 ../jade-gui "$pkgdir/usr/bin/."
 }

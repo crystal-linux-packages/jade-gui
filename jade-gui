@@ -1,0 +1,3 @@
+#!/usr/bin/env flatpak
+
+flatpak run al.getcryst.jadegui
