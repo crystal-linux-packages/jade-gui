@@ -4,7 +4,7 @@
 pkgname=jade-gui
 pkgver=1.1.4
 pkgrel=3
-pkgdesc="Libadwaita based GUI front-end for Jade"
+pkgdesc='Libadwaita based GUI front-end for Jade'
 license=('GPL3')
 arch=('any')
 url="https://github.com/crystal-linux/$pkgname"
