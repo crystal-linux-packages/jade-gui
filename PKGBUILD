@@ -20,8 +20,7 @@ build() {
         --repo= ../build-repo \
         --force-clean ../build-dir al.getcryst.jadegui.yml
     flatpak build-bundle ../build-repo \
-        --runtime-repo=https://flathub.org/repo/flathub.flatpakrepo \
-                ../jade-gui.flatpak al.getcryst.jadegui
+        --runtime-repo=https://flathub.org/repo/flathub.flatpakrepo ../jade-gui.flatpak al.getcryst.jadegui
 }
 
 package() {
