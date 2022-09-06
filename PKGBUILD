@@ -14,7 +14,7 @@ source=("jade-gui-v$pkgver-$pkgrel::git+${url}#tag=v$pkgver")
 sha256sums=('SKIP')
 
 build() {
-    cd "$srcdir/$pkgname-v$pkgver"
+    cd "$srcdir/$pkgname-v$pkgver-$pkgrel"
     flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     flatpak-builder --install-deps-from=flathub --repo=../build-repo --force-clean ../build-dir al.getcryst.jadegui.yml
     flatpak build-bundle ../build-repo --runtime-repo=https://flathub.org/repo/flathub.flatpakrepo ../jade-gui.flatpak al.getcryst.jadegui
