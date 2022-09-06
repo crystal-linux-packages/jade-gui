@@ -21,6 +21,6 @@ build() {
 }
 
 package() {
-    install -Dm 0755 jade-gui.flatpak "$pkgdir/usr/share/jade-gui"
-    install -Dm 0755 ../jade-gui "$pkgdir/usr/bin"
+    install -Dm 0755 jade-gui.flatpak -t "$pkgdir/usr/share/jade-gui/"
+    install -Dm 0755 ../jade-gui -t "$pkgdir/usr/bin/"
 }
