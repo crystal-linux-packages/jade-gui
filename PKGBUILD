@@ -15,8 +15,7 @@ sha256sums=('SKIP')
 
 build() {
     cd "$srcdir/$pkgname-git"
-    flatpak remote-add --if-not-exists flathub \ 
-        https://flathub.org/repo/flathub.flatpakrepo
+    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     flatpak-builder --install-deps-from=flathub \
         --repo= ../build-repo \
         --force-clean ../build-dir al.getcryst.jadegui.yml
