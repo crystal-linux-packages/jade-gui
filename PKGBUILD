@@ -10,11 +10,11 @@ arch=('any')
 url="https://github.com/crystal-linux/$pkgname"
 depends=('jade' 'openssl' 'flatpak')
 makedepends=('flatpak-builder' 'git')
-source=("git+${url}#tag=v$pkgver")
+source=("jade-gui-git::git+${url}#tag=v$pkgver")
 sha256sums=('SKIP')
 
 build() {
-    cd "$srcdir/$pkgname"
+    cd "$srcdir/$pkgname-git"
     flatpak remote-add --if-not-exists flathub \ 
         https://flathub.org/repo/flathub.flatpakrepo
     flatpak-builder --install-deps-from=flathub \
