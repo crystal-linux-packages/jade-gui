@@ -3,14 +3,14 @@
 
 pkgname=jade-gui
 pkgver=1.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Libadwaita based GUI front-end for Jade'
 license=('GPL3')
 arch=('any')
 url="https://github.com/crystal-linux/$pkgname"
 depends=('jade' 'openssl' 'flatpak')
 makedepends=('flatpak-builder' 'git')
-source=("jade-gui-v$pkgver::git+${url}#tag=v$pkgver")
+source=("jade-gui-v$pkgver-$pkgrel::git+${url}#tag=v$pkgver")
 sha256sums=('SKIP')
 
 build() {
