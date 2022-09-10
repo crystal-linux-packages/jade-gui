@@ -2,7 +2,7 @@
 # Contributor: echo -n 'YXh0bG9zIDxheHRsb3NAZ2V0Y3J5c3QuYWw+'     | base64 -d
 
 pkgname=jade-gui
-pkgver=1.2.4
+pkgver=1.2.5
 pkgrel=1
 pkgdesc='Libadwaita based GUI front-end for Jade'
 license=('GPL3')
