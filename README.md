@@ -1,1 +1,1 @@
-PKGBUILD for crystal-linux/jade-gui
+# PKGBUILD for crystal-linux/jade-gui
