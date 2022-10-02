@@ -24,6 +24,6 @@ build() {
 package() {
     cd "${srcdir}"
     install -Dm 755 "${pkgname}.flatpak" "${pkgdir}/usr/share/${pkgname}/${pkgname}.flatpak"
-    install -Dm 755 "../${pkgname}" "$pkgdir/usr/bin/${pkgname}"
+    install -Dm 755 "../${pkgname}" "${pkgdir}/usr/bin/${pkgname}"
     install -Dm 644 "${pkgname}-${pkgver}/README.md" "${pkgdir}/usr/share/doc/${pkgname}/README.md"
 }
