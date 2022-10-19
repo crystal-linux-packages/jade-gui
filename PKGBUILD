@@ -1,29 +1,30 @@
-# Maintainer:  echo -n 'TWljaGFsIFMuIDxtaWNoYWxAZ2V0Y3J5c3QuYWw+' | base64 -d
-# Contributor: echo -n 'YXh0bG9zIDxheHRsb3NAZ2V0Y3J5c3QuYWw+'     | base64 -d
+# Maintainer:  echo -n 'TWF0dCBDLiA8bWF0dEBnZXRjcnlzdC5hbD4='     | base64 -d
+# Contributor: echo -n 'TWljaGFsIFMuIDxtaWNoYWxAZ2V0Y3J5c3QuYWw+' | base64 -d
+# Contributor: echo -n 'Um9iaW4gQy4gPHJjYW5kYXVAZ2V0Y3J5c3QuYWw+' | base64 -d
 
 pkgname=jade-gui
-_pkgname=jadegui
-pkgver=1.5.0
-pkgrel=2
+pkgver=1.6.0
+pkgrel=1
 pkgdesc='Libadwaita based GUI front-end for Jade'
 license=('GPL3')
-arch=('any')
+arch=('x86_64' 'aarch64')
 url="https://github.com/crystal-linux/${pkgname}"
-depends=('jade' 'openssl' 'flatpak')
-makedepends=('flatpak-builder')
+depends=('jade' 'openssl')
+makedepends=('meson' 'ninja' 'libadwaita' 'desktop-file-utils' 'appstream-glib' 'gtk4')
 source=("${pkgname}-${pkgver}::${url}/archive/v${pkgver}.tar.gz")
-sha256sums=('b1c8454d03ae322607f5af88b3bfb2dcde9bfd15642ba6e8adb0b8dbdab0d94e')
+sha256sums=('aa9ee575896f44bee706b6847de513549bd7aaaa663b13d84c8d7c07fe54accb')
 
 build() {
     cd "${srcdir}/${pkgname}-${pkgver}"
-    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-    flatpak-builder --install-deps-from=flathub --repo=../build-repo --force-clean ../build-dir al.getcryst.${_pkgname}.yml
-    flatpak build-bundle ../build-repo --runtime-repo=https://flathub.org/repo/flathub.flatpakrepo ../${pkgname}.flatpak al.getcryst.${_pkgname}
+    meson --prefix="${pkgdir}/usr" _build
+    ninja -C _build
 }
 
 package() {
-    cd "${srcdir}"
-    install -Dm 755 "${pkgname}.flatpak" "${pkgdir}/usr/share/${pkgname}/${pkgname}.flatpak"
-    install -Dm 755 "../${pkgname}" "${pkgdir}/usr/bin/${pkgname}"
-    install -Dm 644 "${pkgname}-${pkgver}/README.md" "${pkgdir}/usr/share/doc/${pkgname}/README.md"
+    cd "${srcdir}/${pkgname}-${pkgver}/_build"
+    ninja install
+    rm "${pkgdir}/usr/share/applications/mimeinfo.cache"
+    rm "${pkgdir}/usr/share/glib-2.0/schemas/gschemas.compiled"
+    rm "${pkgdir}/usr/share/icons/hicolor/icon-theme.cache"
+    mv "${pkgdir}/usr/bin/jade_gui" "${pkgdir}/usr/bin/${pkgname}"
 }
