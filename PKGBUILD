@@ -3,7 +3,7 @@
 # Contributor: echo -n 'Um9iaW4gQy4gPHJjYW5kYXVAZ2V0Y3J5c3QuYWw+' | base64 -d
 
 pkgname=jade-gui
-pkgver=1.6.0
+pkgver=1.6.1
 pkgrel=1
 pkgdesc='Libadwaita based GUI front-end for Jade'
 license=('GPL3')
@@ -12,19 +12,15 @@ url="https://github.com/crystal-linux/${pkgname}"
 depends=('jade' 'openssl')
 makedepends=('meson' 'ninja' 'libadwaita' 'desktop-file-utils' 'appstream-glib' 'gtk4')
 source=("${pkgname}-${pkgver}::${url}/archive/v${pkgver}.tar.gz")
-sha256sums=('aa9ee575896f44bee706b6847de513549bd7aaaa663b13d84c8d7c07fe54accb')
+sha256sums=('bab9b7c33946faedf73865be73c95c4c9560aa3421892edf75ca6af6975dbaf9')
 
 build() {
     cd "${srcdir}/${pkgname}-${pkgver}"
-    meson --prefix="${pkgdir}/usr" _build
+    meson --prefix="/usr" _build
     ninja -C _build
 }
 
 package() {
     cd "${srcdir}/${pkgname}-${pkgver}/_build"
-    ninja install
-    rm "${pkgdir}/usr/share/applications/mimeinfo.cache"
-    rm "${pkgdir}/usr/share/glib-2.0/schemas/gschemas.compiled"
-    rm "${pkgdir}/usr/share/icons/hicolor/icon-theme.cache"
-    mv "${pkgdir}/usr/bin/jade_gui" "${pkgdir}/usr/bin/${pkgname}"
+    DESTDIR="${pkgdir}" ninja install
 }
